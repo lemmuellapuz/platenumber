@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\v1\VehicleRecognizerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::prefix('search/')->name('search.')->controller(VehicleRecognizerController::class)->group(function(){
+    Route::post('platenumber', 'searchByPlateNumber')->name('platenumber');
+    Route::post('id', 'searchById')->name('id');
 });
