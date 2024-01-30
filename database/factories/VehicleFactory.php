@@ -99,7 +99,7 @@ class VehicleFactory extends Factory
             'brand' => $brand,
             'type' => $type,
             'model' => $model,
-            'color' => array_rand($colors),
+            'color' => $colors[array_rand($colors)],
             'date_of_last_registration' => fake()->date(),
             'status' => rand(0,1),
             'has_crime' => rand(0,1),
