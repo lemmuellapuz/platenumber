@@ -96,7 +96,7 @@ class VehicleFactory extends Factory
 
         return [
             'plate_number' => Str::upper(Str::random(3)) . ' ' . rand(100,9999),
-            'brand' => $brand,
+            'vehicle_make' => $brand,
             'type' => $type,
             'model' => $model,
             'color' => $colors[array_rand($colors)],

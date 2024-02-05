@@ -16,6 +16,9 @@ class VehicleRecognizerByPlateNumberRequest extends FormRequest
     {
         return [
             'platenumber' => ['required'],
+            'vehicle_make' => ['required'],
+            'model' => ['required'],
+            'color' => ['required'],
         ];
     }
 }

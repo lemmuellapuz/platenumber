@@ -11,17 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vehicles', function (Blueprint $table) {
+        Schema::create('vehicle_logs', function (Blueprint $table) {
             $table->id();
-            $table->string('plate_number')->unique();
+            $table->unsignedBigInteger('vehicle_id')->nullable();
+            $table->string('plate_number');
             $table->string('vehicle_make');
-            $table->string('type');
             $table->string('model');
             $table->string('color');
-            $table->date('date_of_last_registration');
-            $table->boolean('status');
-            $table->boolean('has_crime');
             $table->timestamps();
+
+            $table->foreign('vehicle_id')->references('id')->on('vehicles');
+
+            $table->index('vehicle_id');
+            $table->index('plate_number');
+            $table->index('vehicle_make');
         });
     }
 
@@ -30,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vehicles');
+        Schema::dropIfExists('vehicle_logs');
     }
 };
