@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\v1\HistoryController;
 use App\Http\Controllers\API\v1\VehicleRecognizerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,3 +24,5 @@ Route::prefix('search/')->name('search.')->controller(VehicleRecognizerControlle
     Route::post('platenumber', 'searchByPlateNumber')->name('platenumber');
     Route::post('id', 'searchById')->name('id');
 });
+
+Route::post('history', HistoryController::class)->name('history.index');
