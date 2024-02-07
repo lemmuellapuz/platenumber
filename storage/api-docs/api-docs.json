@@ -17,6 +17,38 @@
                 "summary": "Displays the history of searched vehicles",
                 "description": "Returns History of recognized vehicles",
                 "operationId": "__invoke",
+                "parameters": [
+                    {
+                        "name": "X-Api-Key",
+                        "in": "header",
+                        "description": "API Key for authentication",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "your_api_key"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Request body for searching vehicle history",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "keyword": {
+                                        "description": "The keyword used to search for vehicle history",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "keyword": "CJJ 3333"
+                                }
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Successful Operation"
