@@ -1,0 +1,126 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Plate Recognition",
+        "description": "Plate Recognition API Documentation",
+        "contact": {
+            "email": "ldlapuz@bmqbuilders.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/history": {
+            "post": {
+                "tags": [
+                    "History"
+                ],
+                "summary": "Displays the history of searched vehicles",
+                "description": "Returns History of recognized vehicles",
+                "operationId": "__invoke",
+                "parameters": [
+                    {
+                        "name": "X-Api-Key",
+                        "in": "header",
+                        "description": "API Key for authentication",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "your_api_key"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Request body for searching vehicle history",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "keyword": {
+                                        "description": "The keyword used to search for vehicle history",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "keyword": "CJJ 3333"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation"
+                    },
+                    "422": {
+                        "description": "Invalid Request Data"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/search/platenumber": {
+            "post": {
+                "tags": [
+                    "Search"
+                ],
+                "summary": "Search vehicle record by plate number",
+                "description": "Returns collection of vehicle information",
+                "operationId": "searchByPlateNumber",
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation"
+                    },
+                    "422": {
+                        "description": "Invalid Request Data"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/search/id": {
+            "post": {
+                "tags": [
+                    "Search"
+                ],
+                "summary": "Search vehicle record by vehicle id",
+                "description": "Returns collection of vehicle information",
+                "operationId": "searchById",
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation"
+                    },
+                    "422": {
+                        "description": "Invalid Request Data"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -172,6 +172,8 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         App\Providers\VehicleRecognizerServiceProvider::class,
+        
+        L5Swagger\L5SwaggerServiceProvider::class,
     ])->toArray(),
 
     /*
