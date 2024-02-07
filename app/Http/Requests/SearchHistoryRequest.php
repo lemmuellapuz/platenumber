@@ -15,7 +15,9 @@ class SearchHistoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'keyword' => 'nullable'
+            'keyword' => 'nullable',
+            'start_date' => 'required',
+            'end_date' => 'required',
         ];
     }
 }

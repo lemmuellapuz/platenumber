@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\VehicleRecognizer\VehicleRecognizerByIdRequest;
 use App\Http\Requests\VehicleRecognizer\VehicleRecognizerByPlateNumberRequest;
+use App\Http\Resources\VehicleResource;
 use App\Http\Services\Vehicles\VehicleService;
 use Illuminate\Http\Request;
 
@@ -54,7 +55,14 @@ class VehicleRecognizerController extends Controller
     {
         try {
             
-            return $this->service->getVehicleByPlateNumber($request);
+            $vehicle = $this->service->getVehicleByPlateNumber($request);
+
+            if(!$vehicle)
+                return response()->json([
+                    'message' => 'No records exist for the vehicle.'
+                ], 200);
+
+            return new VehicleResource($vehicle);
             
         } catch (\Throwable $th) {
             return response()->json([
@@ -99,7 +107,14 @@ class VehicleRecognizerController extends Controller
     {
         try {
             
-            return $this->service->getVehicleByPlateNumber($request);
+            $vehicle = $this->service->getVehicleByPlateNumber($request);
+
+            if(!$vehicle)
+                return response()->json([
+                    'message' => 'No records exist for the vehicle.'
+                ], 200);
+
+            return new VehicleResource($vehicle);
             
         } catch (\Throwable $th) {
             return response()->json([

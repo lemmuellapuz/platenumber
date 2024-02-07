@@ -3,6 +3,7 @@
 namespace App\Http\Services\History;
 
 use App\Models\VehicleLog;
+use Carbon\Carbon;
 
 class HistoryService
 {
@@ -12,7 +13,9 @@ class HistoryService
         $keyword = trim($request->keyword);
 
         if (empty($keyword)) {
-            return VehicleLog::with('vehicle')->simplePaginate(10);
+            return VehicleLog::with('vehicle')
+            ->whereBetween('created_at', [Carbon::parse($request->start_date . ' 00:00:00'), Carbon::parse($request->end_date . ' 23:59:59')])
+            ->simplePaginate(10);
         }
 
         return VehicleLog::with('vehicle')
@@ -24,6 +27,7 @@ class HistoryService
                     ->orWhereRaw('LOWER(model) LIKE ?', ["%$lowerKeyword%"])
                     ->orWhereRaw('LOWER(color) LIKE ?', ["%$lowerKeyword%"]);
             })
+            ->whereBetween('created_at', [Carbon::parse($request->start_date . ' 00:00:00'), Carbon::parse($request->end_date . ' 23:59:59')])
             ->simplePaginate(10);
     }
 

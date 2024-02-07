@@ -11,15 +11,13 @@ class VehicleLogService implements VehicleLogInterface
 
     public function logDetails($request, $vehicle): void
     {
-        
         VehicleLog::create([
-            'vehicle_id' => $vehicle->id,
+            'vehicle_id' => $vehicle?->id,
             'plate_number' => $request->platenumber,
             'vehicle_make' => $request->vehicle_make,
             'model' => $request->model,
             'color' => $request->color,
         ]);
-
     }
 
 }

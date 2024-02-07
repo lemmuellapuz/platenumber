@@ -19,8 +19,6 @@ class VehicleResource extends JsonResource
             'date_of_last_registration' => $this->date_of_last_registration,
             'status' => $this->status,
             'has_crime' => $this->has_crime,
-            'created_at' => $this->created_at->toDateTimeString(),
-            'updated_at' => $this->updated_at->toDateTimeString(),
         ];
     }
 }

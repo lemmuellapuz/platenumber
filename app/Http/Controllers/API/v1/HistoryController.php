@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SearchHistoryRequest;
 use App\Http\Resources\VehicleLogResource;
 use App\Http\Services\History\HistoryService;
+use App\Models\VehicleLog;
 use Illuminate\Http\Request;
 
 class HistoryController extends Controller
@@ -32,35 +33,10 @@ class HistoryController extends Controller
     /**
         * @OA\Post(
         *      path="/history",
-        *      operationId="__invoke",
+        *      operationId="index",
         *      tags={"History"},
         *      summary="Displays the history of searched vehicles",
         *      description="Returns History of recognized vehicles",
-        *      @OA\RequestBody(
-        *          required=true,
-        *          description="Request body for searching vehicle history",
-        *          @OA\MediaType(
-        *              mediaType="application/json",
-        *              @OA\Schema(
-        *                  @OA\Property(
-        *                      property="keyword",
-        *                      type="string",
-        *                      description="The keyword used to search for vehicle history",
-        *                  ),
-        *                  example={"keyword": "CJJ 3333"}
-        *              )
-        *          )
-        *      ),
-        *      @OA\Parameter(
-        *          name="X-Api-Key",
-        *          in="header",
-        *          required=true,
-        *          description="API Key for authentication",
-        *          @OA\Schema(
-        *              type="string",
-        *              example="your_api_key"
-        *          )
-        *      ),
         *      @OA\Response(
         *          response=200,
         *          description="Successful Operation",
@@ -86,8 +62,20 @@ class HistoryController extends Controller
         * Returns History of recognized vehicles.
     */
 
-    public function __invoke(SearchHistoryRequest $request)
+    public function index(SearchHistoryRequest $request)
     {
         return VehicleLogResource::collection($this->service->index($request));
+    }
+
+    public function show($id)
+    {
+        $vehicle_log = VehicleLog::with('vehicle')->where('id', $id)->first();
+        
+        if(!$vehicle_log)
+            return response()->json([
+                'message' => 'No records exist for the vehicle.'
+            ], 200);
+
+        return VehicleLogResource::make($vehicle_log);
     }
 }
