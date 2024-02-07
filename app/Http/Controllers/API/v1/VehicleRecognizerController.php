@@ -17,6 +17,39 @@ class VehicleRecognizerController extends Controller
         $this->service = $service;
     }
 
+
+    /**
+     * @OA\Post(
+     *      path="/search/platenumber",
+     *      operationId="searchByPlateNumber",
+     *      tags={"Search"},
+     *      summary="Search vehicle record by plate number",
+     *      description="Returns collection of vehicle information",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful Operation"
+     *       ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Invalid Request Data"
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized"
+     *       ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *       ),
+     *      @OA\Response(
+     *          response=500,
+     *          description="Internal Server Error"
+     *       ),
+     *     )
+     *
+     * Returns vehicle information.
+     */
+
     public function searchByPlateNumber(VehicleRecognizerByPlateNumberRequest $request)
     {
         try {
@@ -29,6 +62,38 @@ class VehicleRecognizerController extends Controller
             ], 500);
         }
     }
+
+    /**
+     * @OA\Post(
+     *      path="/search/id",
+     *      operationId="searchById",
+     *      tags={"Search"},
+     *      summary="Search vehicle record by vehicle id",
+     *      description="Returns collection of vehicle information",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful Operation"
+     *       ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Invalid Request Data"
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized"
+     *       ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *       ),
+     *      @OA\Response(
+     *          response=500,
+     *          description="Internal Server Error"
+     *       ),
+     *     )
+     *
+     * Returns vehicle information.
+     */
     
     public function searchById(VehicleRecognizerByIdRequest $request)
     {
