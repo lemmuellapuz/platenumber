@@ -30,7 +30,7 @@ class HistoryService
             $logs->whereBetween('created_at', [Carbon::parse($request->start_date . ' 00:00:00'), Carbon::parse($request->end_date . ' 23:59:59')]);
         }
 
-        return $logs->simplePaginate(10);
+        return $logs->orderBy('created_at', 'DESC')->simplePaginate(10);
     }
 
 }
