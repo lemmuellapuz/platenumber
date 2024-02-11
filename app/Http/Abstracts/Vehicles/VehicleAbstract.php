@@ -13,6 +13,6 @@ abstract class VehicleAbstract implements VehicleDetailsInterface
     {
         $data = trim(strip_tags(str_replace(' ', '%', $platenumber)));
         
-        return Vehicle::where('plate_number', 'LIKE', $data)->first();
+        return Vehicle::whereRaw('REPLACE(plate_number, " ", "") LIKE ?', ["%$data%"])->first();
     }
 }
