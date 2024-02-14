@@ -16,6 +16,7 @@ class SearchHistoryRequest extends FormRequest
     {
         return [
             'keyword' => 'nullable',
+            'apprehension' => 'required | in:all,true,false',
             'start_date' => 'nullable',
             'end_date' => 'nullable',
         ];

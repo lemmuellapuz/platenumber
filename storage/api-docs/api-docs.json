@@ -16,39 +16,220 @@
                 ],
                 "summary": "Displays the history of searched vehicles",
                 "description": "Returns History of recognized vehicles",
-                "operationId": "__invoke",
-                "parameters": [
-                    {
-                        "name": "X-Api-Key",
-                        "in": "header",
-                        "description": "API Key for authentication",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "example": "your_api_key"
-                        }
-                    }
-                ],
+                "operationId": "index",
                 "requestBody": {
-                    "description": "Request body for searching vehicle history",
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
                                 "properties": {
                                     "keyword": {
-                                        "description": "The keyword used to search for vehicle history",
-                                        "type": "string"
+                                        "description": "Search query for the vehicle",
+                                        "type": "string",
+                                        "example": "NAG 1379"
+                                    },
+                                    "apprehension": {
+                                        "description": "Flagging of apprehension. Values can be 'all', 'true', 'false'",
+                                        "type": "string",
+                                        "example": "all"
+                                    },
+                                    "start_date": {
+                                        "description": "Start date of history",
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2024-02-14"
+                                    },
+                                    "end_date": {
+                                        "description": "End date of history",
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2024-02-14"
                                     }
                                 },
-                                "type": "object",
-                                "example": {
-                                    "keyword": "CJJ 3333"
-                                }
+                                "type": "object"
                             }
                         }
                     }
                 },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation"
+                    },
+                    "422": {
+                        "description": "Invalid Request Data"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/store": {
+            "post": {
+                "tags": [
+                    "History"
+                ],
+                "summary": "Saves the captured data.",
+                "description": "Saves the captured data that will be displayed in history table.",
+                "operationId": "store",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "vehicle_id": {
+                                        "description": "ID of the vehicle",
+                                        "type": "string",
+                                        "example": "1",
+                                        "nullable": true
+                                    },
+                                    "platenumber": {
+                                        "description": "Plate number of the vehicle",
+                                        "type": "string",
+                                        "example": "NAF 3333"
+                                    },
+                                    "vehicle_make": {
+                                        "description": "Brand name of the vehicle",
+                                        "type": "string",
+                                        "example": "Toyota"
+                                    },
+                                    "model": {
+                                        "description": "Model of the vehicle",
+                                        "type": "string",
+                                        "example": "Vios"
+                                    },
+                                    "color": {
+                                        "description": "Color of the vehicle",
+                                        "type": "string",
+                                        "example": "Silver"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation"
+                    },
+                    "422": {
+                        "description": "Invalid Request Data"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/{id}": {
+            "get": {
+                "tags": [
+                    "History"
+                ],
+                "summary": "Shows the details of the history.",
+                "description": "Returns all the details of the history captured in application.",
+                "operationId": "show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "History ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation"
+                    },
+                    "422": {
+                        "description": "Invalid Request Data"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/vehicle/{vehicle}/apprehend": {
+            "post": {
+                "tags": [
+                    "Apprehension"
+                ],
+                "summary": "Apprehends the vehicle.",
+                "description": "Update apprehension status of the vehicle to true.",
+                "operationId": "apprehend",
+                "parameters": [
+                    {
+                        "name": "vehicle",
+                        "in": "query",
+                        "description": "Vehicle ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation"
+                    },
+                    "422": {
+                        "description": "Invalid Request Data"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/vehicle/{vehicle}/discharge": {
+            "post": {
+                "tags": [
+                    "Apprehension"
+                ],
+                "summary": "Discharges the vehicle.",
+                "description": "Update apprehension status of the vehicle to false.",
+                "operationId": "discharge",
+                "parameters": [
+                    {
+                        "name": "vehicle",
+                        "in": "query",
+                        "description": "Vehicle ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful Operation"
@@ -76,6 +257,38 @@
                 "summary": "Search vehicle record by plate number",
                 "description": "Returns collection of vehicle information",
                 "operationId": "searchByPlateNumber",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "platenumber": {
+                                        "description": "Plate number of the vehicle",
+                                        "type": "string",
+                                        "example": "NAF 3333"
+                                    },
+                                    "vehicle_make": {
+                                        "description": "Brand name of the vehicle",
+                                        "type": "string",
+                                        "example": "Toyota"
+                                    },
+                                    "model": {
+                                        "description": "Model of the vehicle",
+                                        "type": "string",
+                                        "example": "Vios"
+                                    },
+                                    "color": {
+                                        "description": "Color of the vehicle",
+                                        "type": "string",
+                                        "example": "Silver"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Successful Operation"
@@ -103,6 +316,23 @@
                 "summary": "Search vehicle record by vehicle id",
                 "description": "Returns collection of vehicle information",
                 "operationId": "searchById",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "Vehicle ID",
+                                        "type": "string",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Successful Operation"

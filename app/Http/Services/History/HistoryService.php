@@ -25,6 +25,14 @@ class HistoryService
             });
         }
         
+        if (!empty($request->apprehension))
+        {
+            $flag = strtolower($request->apprehension) == 'all' ? '%' : $request->apprehension;
+            $logs->whereHas('vehicle', function($query) use($flag) {
+                $query->where('has_crime', 'LIKE', $flag);
+            });
+        }
+        
         if (!empty($request->start_date) && !empty($request->end_date))
         {
             $logs->whereBetween('created_at', [Carbon::parse($request->start_date . ' 00:00:00'), Carbon::parse($request->end_date . ' 23:59:59')]);

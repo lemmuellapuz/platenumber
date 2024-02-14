@@ -26,6 +26,15 @@ class VehicleRecognizerController extends Controller
      *      tags={"Search"},
      *      summary="Search vehicle record by plate number",
      *      description="Returns collection of vehicle information",
+    *       @OA\RequestBody(
+    *          required=true,
+    *          @OA\JsonContent(
+    *              @OA\Property(property="platenumber", type="string", example="NAF 3333", description="Plate number of the vehicle"),
+    *              @OA\Property(property="vehicle_make", type="string", example="Toyota", description="Brand name of the vehicle"),
+    *              @OA\Property(property="model", type="string", example="Vios", description="Model of the vehicle"),
+    *              @OA\Property(property="color", type="string", example="Silver", description="Color of the vehicle"),
+    *           ),
+    *       ),
      *      @OA\Response(
      *          response=200,
      *          description="Successful Operation"
@@ -78,6 +87,12 @@ class VehicleRecognizerController extends Controller
      *      tags={"Search"},
      *      summary="Search vehicle record by vehicle id",
      *      description="Returns collection of vehicle information",
+     *       @OA\RequestBody(
+    *          required=true,
+    *          @OA\JsonContent(
+    *              @OA\Property(property="id", type="string", example="1", description="Vehicle ID"),
+    *           ),
+    *       ),
      *      @OA\Response(
      *          response=200,
      *          description="Successful Operation"

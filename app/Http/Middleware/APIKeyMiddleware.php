@@ -10,6 +10,10 @@ class APIKeyMiddleware
 {
     public function handle($request, Closure $next)
     {
+
+        if (strpos($request->url(), 'docs') !== false)
+            return $next($request);
+
         $apiKey = $request->header('X-Api-Key');
 
         if ($apiKey !== config('app.api_key')) {
