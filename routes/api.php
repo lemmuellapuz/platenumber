@@ -27,5 +27,6 @@ Route::prefix('search/')->name('search.')->controller(VehicleRecognizerControlle
 
 Route::prefix('history/')->name('history.')->controller(HistoryController::class)->group(function(){
     Route::post('', 'index')->name('index');
+    Route::post('store', 'store')->name('store');
     Route::get('{id}', 'show')->name('show');
 });

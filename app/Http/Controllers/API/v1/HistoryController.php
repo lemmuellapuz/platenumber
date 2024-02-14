@@ -4,8 +4,11 @@ namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SearchHistoryRequest;
+use App\Http\Requests\VehicleLog\VehicleLogRequest;
 use App\Http\Resources\VehicleLogResource;
 use App\Http\Services\History\HistoryService;
+use App\Http\Services\Vehicles\VehicleLogService;
+use App\Models\Vehicle;
 use App\Models\VehicleLog;
 use Illuminate\Http\Request;
 
@@ -24,10 +27,12 @@ class HistoryController extends Controller
     */
 
     private $service;
+    private $logService;
 
-    public function __construct(HistoryService $service)
+    public function __construct(HistoryService $service, VehicleLogService $logService)
     {   
         $this->service = $service;
+        $this->logService = $logService;
     }
 
     /**
@@ -65,6 +70,24 @@ class HistoryController extends Controller
     public function index(SearchHistoryRequest $request)
     {
         return VehicleLogResource::collection($this->service->index($request));
+    }
+
+    public function store(VehicleLogRequest $request)
+    {
+        try {
+            $vehicle = Vehicle::where('id', $request->vehicle_id)->first();
+
+            $this->logService->logDetails($request, $vehicle);
+            
+            return response()->json([
+                'message' => 'Sucess.'
+            ], 200);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => $th->getMessage()
+            ], 500);
+        }
     }
 
     public function show($id)

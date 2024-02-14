@@ -3,14 +3,15 @@
 namespace App\Http\Contracts\Vehicles;
 
 use App\Models\Vehicle;
+use App\Models\VehicleLog;
 
 interface VehicleLogInterface
 {
 
     /**
      * @param Request $request
-     * @return void
+     * @return VehicleLog
      */
-    public function logDetails($request, $vehicle) : void;
+    public function logDetails($request, $vehicle) : VehicleLog;
 
 }

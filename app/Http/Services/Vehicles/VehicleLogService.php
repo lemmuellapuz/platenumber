@@ -9,9 +9,9 @@ use App\Models\VehicleLog;
 class VehicleLogService implements VehicleLogInterface
 {
 
-    public function logDetails($request, $vehicle): void
+    public function logDetails($request, $vehicle): VehicleLog
     {
-        VehicleLog::create([
+        return VehicleLog::create([
             'vehicle_id' => $vehicle?->id,
             'plate_number' => $request->platenumber,
             'vehicle_make' => $request->vehicle_make,

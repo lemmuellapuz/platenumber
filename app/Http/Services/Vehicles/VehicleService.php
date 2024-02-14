@@ -22,7 +22,7 @@ class VehicleService
     public function getVehicleByPlateNumber($request)
     {
         $vehicle = $this->vehicleInterface->getVehicleDetailsByPlateNumber($request->platenumber);
-        $this->logService->logDetails($request, $vehicle);
+        // $this->logService->logDetails($request, $vehicle);
 
         return $vehicle;
     }
